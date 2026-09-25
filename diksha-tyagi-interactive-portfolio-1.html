@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diksha Tyagi | Interactive marketing portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F6EF;
+  --surface: #FFFFFF;
+  --ink: #1E2330;
+  --muted: #5B6270;
+  --line: #D9DDD0;
+  --apple: #3F7A24;
+  --apple-tint: #E4EFD8;
+  --caramel: #A85A14;
+  --caramel-tint: #F6E7D3;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14181A; --surface: #1C2124; --ink: #ECEFE8; --muted: #A3ABA0; --line: #2E3530;
+    --apple: #93D06B; --apple-tint: #23301C; --caramel: #E0A467; --caramel-tint: #33261A;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14181A; --surface: #1C2124; --ink: #ECEFE8; --muted: #A3ABA0; --line: #2E3530;
+  --apple: #93D06B; --apple-tint: #23301C; --caramel: #E0A467; --caramel-tint: #33261A;
+}
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 64px); -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: hidden; max-width: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.65; }
+.wrap, section, .lab, .mockwrap, .split, .roles-grid, .ledger, .row, .dial-top, .phases, .changes, .vs, .env-body, .readout, .wire, .phone, .nav-in { min-width: 0; }
+img, svg { max-width: 100%; }
+a { color: var(--apple); text-underline-offset: 3px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid var(--caramel); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 22px; }
+section { padding: 60px 0 8px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0 0 16px; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.3rem, 8vw, 3.6rem); font-weight: 800; }
+h2 { font-size: clamp(1.7rem, 5.5vw, 2.3rem); font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; }
+p { margin: 0 0 16px; max-width: 64ch; }
+.muted { color: var(--muted); }
+.small { font-size: 0.9rem; }
+.rule { border: 0; border-top: 1px solid var(--line); margin: 52px 0 0; }
+
+/* sticky nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.nav-in { display: flex; gap: 8px; overflow-x: auto; padding: 10px 22px; max-width: 760px; margin: 0 auto; scrollbar-width: none; }
+.nav-in::-webkit-scrollbar { display: none; }
+.nav a { flex: 0 0 auto; text-decoration: none; color: var(--muted); font-family: var(--display); font-weight: 500; font-size: 0.9rem; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.nav a.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* hero */
+.hero { padding: 56px 0 8px; }
+.name { font-family: var(--display); font-weight: 700; font-size: 1.05rem; margin: 0 0 20px; }
+.hero h1 { max-width: 15ch; }
+.roles { color: var(--muted); max-width: 52ch; }
+.stamp { display: inline-block; padding: 8px 14px; background: var(--caramel-tint); color: var(--caramel); border-radius: 999px; font-family: var(--display); font-weight: 500; font-size: 0.88rem; }
+.cta { display: inline-block; margin: 18px 12px 0 0; padding: 13px 20px; background: var(--ink); color: var(--bg); border-radius: 12px; font-family: var(--display); font-weight: 700; text-decoration: none; }
+.cta.alt { background: transparent; color: var(--ink); border: 2px solid var(--ink); padding: 11px 18px; }
+.howto { margin-top: 30px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; }
+.howto p { margin: 0; font-size: 0.98rem; }
+
+/* segmented + chips */
+.seg { display: inline-flex; border: 2px solid var(--ink); border-radius: 12px; overflow: hidden; margin: 8px 0 18px; }
+.seg button { border: 0; background: transparent; padding: 10px 22px; font-family: var(--display); font-weight: 700; font-size: 0.95rem; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px; }
+.chip { border: 1px solid var(--line); background: var(--surface); padding: 9px 16px; border-radius: 999px; font-family: var(--display); font-weight: 500; font-size: 0.93rem; }
+.chip[aria-pressed="true"] { background: var(--apple); border-color: var(--apple); color: #fff; }
+:root[data-theme="dark"] .chip[aria-pressed="true"], @media (prefers-color-scheme: dark) {}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chip[aria-pressed="true"] { color: #102008; } }
+:root[data-theme="dark"] .chip[aria-pressed="true"] { color: #102008; }
+
+/* teardown wireframe */
+.lab { display: grid; gap: 26px; margin: 22px 0; align-items: start; }
+@media (min-width: 760px) { .lab { grid-template-columns: 340px 1fr; } }
+.wire { width: 100%; max-width: 340px; margin: 0 auto; background: var(--surface); border: 8px solid var(--ink); border-radius: 30px; padding: 22px 26px 20px 16px; overflow: visible; }
+.blk { position: relative; border: 1.5px dashed var(--line); border-radius: 10px; padding: 12px 14px; margin: 0 6px 14px 0; background: var(--bg); }
+.blk .t { font-family: var(--display); font-weight: 800; font-size: 1.25rem; line-height: 1.1; margin: 0 0 4px; }
+.blk .s { font-size: 0.85rem; color: var(--muted); margin: 0; line-height: 1.35; }
+.blk .fld { height: 30px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface); margin-bottom: 8px; font-family: var(--display); font-size: 0.78rem; color: var(--muted); padding: 6px 10px; }
+.blk .go { height: 34px; border-radius: 8px; background: var(--ink); color: var(--bg); font-family: var(--display); font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.tiles span { border: 1.5px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 8px; font-family: var(--display); font-size: 0.72rem; text-align: center; color: var(--muted); }
+.pin { position: absolute; right: -8px; top: -8px; width: 32px; height: 32px; border-radius: 50%; border: 3px solid var(--surface); font-family: var(--display); font-weight: 800; font-size: 0.9rem; color: #fff; display: grid; place-items: center; padding: 0; }
+.pin.w { background: var(--apple); }
+.pin.n { background: var(--caramel); }
+:root[data-theme="dark"] .pin { color: #102008; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pin { color: #102008; } }
+.pin[aria-pressed="true"] { box-shadow: 0 0 0 4px var(--ink); }
+.pin.seen::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 10px; height: 10px; background: var(--ink); border: 2px solid var(--surface); border-radius: 50%; }
+/* ledger (theirs / mine / because rows) */
+.ledger { margin: 22px 0; border-top: 2px solid var(--ink); }
+.row { display: grid; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.row .k { font-family: var(--display); font-weight: 700; font-size: 0.82rem; color: var(--muted); display: inline-block; margin-bottom: 6px; }
+.row div p { margin: 0; font-size: 0.98rem; line-height: 1.5; }
+.row .because { background: var(--apple-tint); padding: 12px 14px; border-radius: 10px; }
+.row .because .k { color: var(--apple); }
+.tag-theirs { color: var(--caramel); background: var(--caramel-tint); padding: 2px 10px; border-radius: 6px; }
+.tag-mine { color: var(--apple); background: var(--apple-tint); padding: 2px 10px; border-radius: 6px; }
+.changes .tag-theirs, .changes .tag-mine { font-family: var(--display); font-weight: 700; font-size: 0.85rem; }
+@media (min-width: 820px) {
+  .ledger { margin-left: -40px; margin-right: -40px; }
+  .row { grid-template-columns: 1fr 1fr 1.1fr; gap: 22px; padding-left: 4px; padding-right: 4px; }
+}
+
+.readout { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; min-height: 250px; }
+.badge { display: inline-block; font-family: var(--display); font-weight: 700; font-size: 0.82rem; padding: 4px 12px; border-radius: 999px; margin-bottom: 10px; }
+.badge.w { background: var(--apple-tint); color: var(--apple); }
+.badge.n { background: var(--caramel-tint); color: var(--caramel); }
+.readout p { font-size: 1rem; }
+.because { background: var(--apple-tint); border-radius: 10px; padding: 10px 14px; font-size: 0.97rem; }
+.because b { font-family: var(--display); color: var(--apple); }
+.progress { font-family: var(--display); font-size: 0.85rem; color: var(--muted); margin: 14px 0 0; }
+.bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+.bar i { display: block; height: 100%; width: 0; background: var(--apple); transition: width .3s; }
+
+/* rebuild mock */
+.mockwrap { display: grid; gap: 26px; margin: 8px 0 24px; align-items: start; }
+@media (min-width: 760px) { .mockwrap { grid-template-columns: 300px 1fr; } }
+.phone { width: 100%; max-width: 300px; min-height: 380px; margin: 0 auto; background: var(--surface); border: 8px solid var(--ink); border-radius: 34px; padding: 26px 20px 22px; }
+.phone .tag { font-family: var(--display); font-size: 0.75rem; font-weight: 700; color: var(--muted); margin: 0 0 14px; }
+.phone .big { font-family: var(--display); font-weight: 800; font-size: 1.5rem; line-height: 1.08; margin: 0 0 10px; letter-spacing: -0.02em; }
+.phone .clock { font-family: var(--display); font-weight: 700; font-size: 2rem; color: var(--apple); margin: 4px 0 4px; font-variant-numeric: tabular-nums; }
+.phone .lbl { font-size: 0.8rem; color: var(--muted); margin: 0 0 12px; }
+.phone .facts { font-family: var(--display); font-size: 0.8rem; font-weight: 500; color: var(--apple); margin: 0 0 14px; }
+.phone .btn { display: block; width: 100%; text-align: center; padding: 12px; border-radius: 10px; font-family: var(--display); font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; }
+.phone .btn.p { background: var(--ink); color: var(--bg); border: 2px solid var(--ink); }
+.phone .btn.s { background: transparent; border: 2px solid var(--ink); color: var(--ink); }
+.phone .foot { font-size: 0.78rem; color: var(--muted); line-height: 1.4; margin: 6px 0 0; }
+.phone .toast { font-family: var(--display); font-size: 0.82rem; font-weight: 700; color: var(--apple); margin: 4px 0 0; min-height: 1.2em; }
+.phone .flv { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+.phone .flv span { border: 1.5px solid var(--line); border-radius: 8px; padding: 6px; font-family: var(--display); font-size: 0.72rem; text-align: center; color: var(--muted); }
+.changes details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 10px; }
+.changes summary { list-style: none; cursor: pointer; padding: 14px 18px; font-family: var(--display); font-weight: 700; font-size: 1rem; display: flex; justify-content: space-between; gap: 12px; }
+.changes summary::-webkit-details-marker { display: none; }
+.changes summary::after { content: "+"; color: var(--apple); font-size: 1.3rem; line-height: 1; }
+.changes details[open] summary::after { content: "\2212"; }
+.changes .in { padding: 0 18px 16px; }
+.changes .in p { font-size: 0.97rem; margin-bottom: 10px; line-height: 1.5; }
+.changes .in .because { margin: 0; }
+
+/* email viewer */
+.envelope { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.env-head { padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--bg); }
+.env-head .subj { font-family: var(--display); font-weight: 700; font-size: 1.1rem; margin: 0 0 2px; }
+.env-head .prev { font-size: 0.88rem; color: var(--muted); margin: 0; }
+.env-body { padding: 18px 20px; }
+.env-body p { font-size: 0.98rem; line-height: 1.55; margin-bottom: 12px; }
+.env-btn { display: inline-block; background: var(--apple); color: #fff; font-family: var(--display); font-weight: 700; padding: 10px 18px; border-radius: 10px; font-size: 0.95rem; }
+:root[data-theme="dark"] .env-btn { color: #102008; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .env-btn { color: #102008; } }
+.env-why { border-top: 1px solid var(--line); padding: 14px 20px; background: var(--apple-tint); font-size: 0.93rem; }
+.env-why p { margin: 0; }
+
+/* plan slider */
+.dial { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; margin: 20px 0; }
+.dial-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.daynum { font-family: var(--display); font-weight: 800; font-size: 2.6rem; line-height: 1; letter-spacing: -0.03em; }
+.daydate { font-family: var(--display); font-weight: 500; color: var(--muted); }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 34px; background: transparent; margin: 14px 0 4px; }
+input[type=range]::-webkit-slider-runnable-track { height: 8px; border-radius: 4px; background: linear-gradient(to right, var(--apple) var(--fill, 0%), var(--line) var(--fill, 0%)); }
+input[type=range]::-moz-range-track { height: 8px; border-radius: 4px; background: var(--line); }
+input[type=range]::-moz-range-progress { height: 8px; border-radius: 4px; background: var(--apple); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 30px; height: 30px; border-radius: 50%; background: var(--surface); border: 5px solid var(--ink); margin-top: -11px; }
+input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 5px solid var(--ink); }
+.phases { display: grid; grid-template-columns: 7fr 7fr 7fr 9fr; gap: 4px; margin-bottom: 14px; }
+.phases span { font-family: var(--display); font-size: 0.72rem; text-align: center; padding: 5px 2px; border-radius: 6px; background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+.phases span.on { background: var(--apple-tint); color: var(--apple); border-color: var(--apple); font-weight: 700; }
+.phase-name { font-family: var(--display); font-weight: 700; font-size: 1.25rem; margin: 6px 0 4px; }
+.dial ul { margin: 8px 0 0; padding-left: 1.1rem; }
+.dial li { margin-bottom: 6px; font-size: 1rem; }
+.flag { display: inline-block; font-family: var(--display); font-weight: 700; font-size: 0.85rem; padding: 4px 12px; border-radius: 999px; background: var(--caramel-tint); color: var(--caramel); margin: 4px 8px 0 0; }
+.day30 { background: var(--apple-tint); border-radius: 12px; padding: 14px 18px; }
+.day30 p { margin: 0; font-size: 1rem; }
+
+/* competitors */
+.shelf { display: flex; gap: 18px; justify-content: center; align-items: flex-end; margin: 22px 0 12px; padding: 20px 10px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.can { background: none; border: 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; opacity: 0.55; transform: scale(0.94); transition: opacity .2s, transform .2s; }
+.can p { margin: 0; font-family: var(--display); font-weight: 700; font-size: 0.85rem; }
+.can.active { opacity: 1; transform: scale(1); }
+.can:focus-visible { outline: 3px solid var(--caramel); outline-offset: 4px; border-radius: 10px; }
+.vs { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 6px 20px; margin-bottom: 14px; }
+.vs dl { margin: 0; }
+.vs .r { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.vs .r:last-child { border-bottom: 0; }
+.vs dt { font-family: var(--display); font-weight: 700; font-size: 0.85rem; color: var(--muted); margin-bottom: 2px; }
+.vs dd { margin: 0; font-size: 0.98rem; line-height: 1.5; }
+.leader { background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--caramel); border-radius: 12px; padding: 14px 18px; }
+.leader p { margin: 0; font-size: 1rem; }
+.leader b { font-family: var(--display); }
+
+/* slots */
+.slot { border: 2px dashed var(--caramel); background: var(--caramel-tint); color: var(--caramel); border-radius: 12px; padding: 14px 18px; margin: 14px 0; font-family: var(--display); font-size: 0.95rem; line-height: 1.45; }
+.slot strong { display: block; margin-bottom: 2px; }
+
+footer { padding: 48px 0 56px; }
+footer p { font-size: 0.88rem; max-width: 70ch; }
+footer ul { padding-left: 1.1rem; font-size: 0.85rem; margin: 8px 0 0; }
+footer li { margin-bottom: 4px; overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .bar i { transition: none; } }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in" id="nav">
+    <a href="#top" class="on">Start</a>
+    <a href="#teardown">Teardown</a>
+    <a href="#rebuild">Rebuild</a>
+    <a href="#plan">30 days</a>
+    <a href="#competitors">Competitors</a>
+    <a href="#case">My work</a>
+    <a href="#with-me">Working with me</a>
+  </div>
+</nav>
+
+<header class="wrap hero" id="top">
+  <p class="name">Diksha Tyagi</p>
+  <h1>I take a live campaign apart, rebuild it, and show my reasoning.</h1>
+  <span class="stamp">Spec work. Not affiliated with Olipop.</span>
+  <div>
+    <a class="cta" href="#teardown">Start the teardown</a>
+    <a class="cta alt" href="#plan">Jump to my 30-day plan</a>
+  </div>
+  <div class="howto">
+    <p>This portfolio is built to be poked at. Tap the pins on the wireframe, flip between their version and mine, drag through my first 30 days, and switch between competitors. Every change comes with a reason.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="teardown">
+  <h2>The teardown</h2>
+  <p>Olipop is running a Caramel Apple giveaway: five winners a day, 12 cases each, name and email to enter, with the drawing open only from 12pm to 5:59pm PT. Here's how I read it. Tap a pin.</p>
+
+  <div class="lab">
+    <div class="wire" role="group" aria-label="Simplified wireframe of the giveaway page with seven tappable pins">
+      <div class="blk">
+        <button class="pin n" data-i="1" aria-label="Pin: the name promises a contest, the mechanic is a lottery" aria-pressed="false">!</button>
+        <p class="t">The Best House on the Block Giveaway</p>
+      </div>
+      <div class="blk">
+        <button class="pin w" data-i="0" aria-label="Pin: it sells an occasion" aria-pressed="false">&#10003;</button>
+        <p class="s">Halloween bragging rights start here. Turn your doorstep into the stop everyone talks about.</p>
+      </div>
+      <div class="blk">
+        <button class="pin w" data-i="2" aria-label="Pin: the prize is real" aria-pressed="false">&#10003;</button>
+        <p class="s"><b>Win 12 cases</b> of limited-edition Caramel Apple.</p>
+      </div>
+      <div class="blk">
+        <button class="pin w" data-i="3" aria-label="Pin: the daily window builds a habit" aria-pressed="false">&#10003;</button>
+        <p class="s">Five winners a day. Sept 16 to 30. Opens 12pm PT.</p>
+      </div>
+      <div class="blk">
+        <button class="pin w" data-i="4" aria-label="Pin: entry is easy" aria-pressed="false">&#10003;</button>
+        <div class="fld">First name</div>
+        <div class="fld">Email</div>
+        <div class="go">Enter</div>
+      </div>
+      <div class="blk">
+        <button class="pin n" data-i="5" aria-label="Pin: the closed state wastes intent" aria-pressed="false">!</button>
+        <p class="t" style="font-size:1rem">The giveaway is recharging</p>
+        <p class="s">Back at 12pm PT for another chance to win.</p>
+      </div>
+      <div class="blk" style="margin-bottom:0">
+        <button class="pin n" data-i="6" aria-label="Pin: no plan for the people who lose" aria-pressed="false">!</button>
+        <div class="tiles"><span>Caramel Apple</span><span>Raspberry Sherbet</span><span>Shirley Temple</span><span>Pineapple Paradise</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="readout" aria-live="polite" id="readout">
+        <span class="badge w">Start here</span>
+        <h3>Tap any pin</h3>
+        <p>Green pins are what's working. Orange pins are what isn't. A dot on a pin means you've looked at it.</p>
+        <p class="muted small">This is a simplified wireframe based on the page's copy, not a screenshot of the live page.</p>
+      </div>
+      <p class="progress" id="prog">0 of 7 reviewed</p>
+      <div class="bar"><i id="barfill"></i></div>
+    </div>
+  </div>
+
+  <p class="muted small">One honest gap: I based this on the giveaway page's copy and press coverage, not on Olipop's actual emails, since I'm not a subscriber. If I were doing this for real, step one would be entering the giveaway myself and grading whatever lands in my inbox. Also worth flagging: Olipop is running a separate Whirlpool refrigerator sweepstakes at the same time, which can split attention. That's my inference.</p>
+  <hr class="rule">
+</section>
+
+<section id="rebuild">
+  <h2>The rebuild</h2>
+  <p><strong>The headline idea: losing should be fun, not dead air.</strong> 75 people win. Thousands don't. Their version has nothing for that second group. Mine gives every non-winner an instant, funny, shareable "Almost Award" instead of silence. Repeat losses turn into their own little collection game.</p>
+
+  <h3>Try it: lose the giveaway</h3>
+  <p>This is a live demo of the mechanic. Click it a few times, the way a real repeat entrant would over the two weeks.</p>
+  <div class="readout" style="margin-bottom:20px">
+    <button class="cta" id="loseBtn" type="button" style="margin:0 0 14px">Enter today's drawing (demo)</button>
+    <div id="badgeOut" aria-live="polite"></div>
+  </div>
+
+  <div class="ledger" style="margin-top:0">
+    <div class="row">
+      <div><span class="k tag-theirs">Theirs</span><p>Non-winners get nothing. The page and inbox both go quiet.</p></div>
+      <div><span class="k tag-mine">Mine</span><p>An instant, joke-titled "Almost Award" certificate, a new one each day, all shareable, all with a real small discount code baked in.</p></div>
+      <div class="because"><span class="k">Because</span><p>Almost everyone who enters is losing. Give them something worth screenshotting instead of nothing at all, and the giveaway markets itself through the people who technically failed it.</p></div>
+    </div>
+    <div class="row">
+      <div><span class="k tag-theirs">Theirs</span><p>No reason to keep entering after you've lost once.</p></div>
+      <div><span class="k tag-mine">Mine</span><p>Badges are collectible. 3 in a row unlocks a guaranteed bonus entry the next day. 5 unlocks a real free-can code.</p></div>
+      <div class="because"><span class="k">Because</span><p>It turns a losing streak into progress instead of a reason to give up and stop opening the emails.</p></div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:32px">And the smaller fixes underneath it</h3>
+  <p>The badge idea is the headline. These are the supporting changes that make the rest of the funnel hold together.</p>
+
+  <div class="seg" role="group" aria-label="Choose version">
+    <button id="bTheirs" aria-pressed="false">Theirs</button>
+    <button id="bMine" aria-pressed="true">Mine</button>
+  </div>
+
+  <div class="mockwrap">
+    <div class="phone" id="phone" aria-live="polite"></div>
+    <div>
+      <p id="mockNote"></p>
+      <p class="muted small">Adding a badge mechanic on top of a sweepstakes can affect its legal structure (odds disclosures, "no purchase necessary" language). I'd flag that for legal review before building it.</p>
+    </div>
+  </div>
+
+  <h3>The rest of the changes, and why</h3>
+  <div class="changes">
+    <details>
+      <summary>Give the closed state something to do</summary>
+      <div class="in">
+        <p><span class="tag-theirs">Theirs:</span> come back at noon, plus a flavor list.<br><span class="tag-mine">Mine:</span> a live countdown, a "Remind me" option, and a "Find it near you" link.</p>
+        <p class="because"><b>Because</b> the person on that page is the most motivated visitor you'll get. Give them a next step instead of a dead end.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Let the badges do double duty as a discount engine</summary>
+      <div class="in">
+        <p><span class="tag-theirs">Theirs:</span> no purchase path for the people who don't win.<br><span class="tag-mine">Mine:</span> every Almost Award certificate carries a small, real discount code, not just a joke title.</p>
+        <p class="because"><b>Because</b> the bit is more fun if it's not only a bit. It gives finance a reason to say yes to the idea.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Add a proof row</summary>
+      <div class="in">
+        <p><span class="tag-theirs">Theirs:</span> flavor description only.<br><span class="tag-mine">Mine:</span> 5g sugar, high fiber, limited edition.</p>
+        <p class="because"><b>Because</b> it ties the giveaway to the brand's "feel good soda" positioning, so the promo builds the brand as well as the flavor.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Lead with the party, not the trick-or-treaters</summary>
+      <div class="in">
+        <p><span class="tag-theirs">Theirs:</span> hand the cans out to trick-or-treaters.<br><span class="tag-mine">Mine:</span> stock the party and make the porch everyone talks about.</p>
+        <p class="because"><b>Because</b> it's a more believable use, and it keeps the fun.</p>
+      </div>
+    </details>
+    <details>
+      <summary>Cross-link the two sweepstakes</summary>
+      <div class="in">
+        <p><span class="tag-theirs">Theirs:</span> two sweepstakes running separately.<br><span class="tag-mine">Mine:</span> one line on each page pointing to the other.</p>
+        <p class="because"><b>Because</b> shared traffic beats competing for the same attention.</p>
+      </div>
+    </details>
+  </div>
+
+  <h3 style="margin-top:32px">The email set</h3>
+  <p>Three emails, each with a different job. Tap to open one.</p>
+  <div class="chips" id="mailChips" role="group" aria-label="Choose an email">
+    <button class="chip" data-m="0" aria-pressed="true">After entry</button>
+    <button class="chip" data-m="1" aria-pressed="false">Non-winners</button>
+    <button class="chip" data-m="2" aria-pressed="false">Winners</button>
+  </div>
+  <div class="envelope" aria-live="polite">
+    <div class="env-head"><p class="subj" id="mSubj"></p><p class="prev" id="mPrev"></p></div>
+    <div class="env-body" id="mBody"></div>
+    <div class="env-why"><p id="mWhy"></p></div>
+  </div>
+  <hr class="rule">
+</section>
+
+<section id="plan">
+  <h2>If they hired me tomorrow</h2>
+  <p>Drag through my first 30 days. Day 1 is September 25. Day 30 is October 24, one week before Halloween.</p>
+
+  <div class="dial">
+    <div class="dial-top">
+      <span class="daynum">Day <span id="dNum">1</span></span>
+      <span class="daydate" id="dDate"></span>
+    </div>
+    <input type="range" id="dRange" min="1" max="30" value="1" aria-label="Day of my first 30 days">
+    <div class="phases" id="phases" aria-hidden="true">
+      <span>Audit</span><span>Learn</span><span>Build</span><span>Launch</span>
+    </div>
+    <div id="dFlags"></div>
+    <p class="phase-name" id="dPhase"></p>
+    <ul id="dList"></ul>
+  </div>
+  <div class="day30"><p><strong>By day 30:</strong> a diagnosed funnel, two fixes that ran during the giveaway, a content program in market before Halloween, and a template for the next limited-edition launch.</p></div>
+  <hr class="rule">
+</section>
+
+<section id="competitors">
+  <h2>Three brands, one flavor</h2>
+  <p>Olipop, Poppi and Culture Pop all launched an apple flavor for fall. Same fruit, three different plays. Pick one.</p>
+
+  <div class="shelf">
+    <div class="can can-o" id="can0" data-b="0" role="button" tabindex="0" aria-pressed="true" aria-label="Show Olipop">
+      <svg viewBox="0 0 90 170" width="72" height="136" aria-hidden="true">
+        <rect x="4" y="4" width="82" height="162" rx="20" fill="#F4EFE2"/>
+        <rect x="4" y="60" width="82" height="52" fill="#3F7A24"/>
+        <rect x="4" y="4" width="82" height="162" rx="20" fill="none" stroke="#1E2330" stroke-width="3"/>
+        <text x="45" y="82" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="15" fill="#F4EFE2">olipop</text>
+        <text x="45" y="100" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="500" font-size="8" fill="#F4EFE2">caramel apple</text>
+      </svg>
+      <p>Olipop</p>
+    </div>
+    <div class="can can-p" id="can1" data-b="1" role="button" tabindex="0" aria-pressed="false" aria-label="Show Poppi">
+      <svg viewBox="0 0 90 170" width="72" height="136" aria-hidden="true">
+        <rect x="4" y="4" width="82" height="162" rx="20" fill="#FDE7EF"/>
+        <rect x="4" y="60" width="82" height="52" fill="#D6336C"/>
+        <rect x="4" y="4" width="82" height="162" rx="20" fill="none" stroke="#1E2330" stroke-width="3"/>
+        <text x="45" y="82" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="15" fill="#FDE7EF">poppi</text>
+        <text x="45" y="100" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="500" font-size="8" fill="#FDE7EF">sour apple</text>
+      </svg>
+      <p>Poppi</p>
+    </div>
+    <div class="can can-c" id="can2" data-b="2" role="button" tabindex="0" aria-pressed="false" aria-label="Show Culture Pop">
+      <svg viewBox="0 0 90 170" width="72" height="136" aria-hidden="true">
+        <rect x="4" y="4" width="82" height="162" rx="20" fill="#E8F4EF"/>
+        <rect x="4" y="60" width="82" height="52" fill="#1F7A6C"/>
+        <rect x="4" y="4" width="82" height="162" rx="20" fill="none" stroke="#1E2330" stroke-width="3"/>
+        <text x="45" y="80" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="12" fill="#E8F4EF">culture</text>
+        <text x="45" y="94" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="12" fill="#E8F4EF">pop</text>
+        <text x="45" y="108" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="500" font-size="7" fill="#E8F4EF">sparkling apple</text>
+      </svg>
+      <p>Culture Pop</p>
+    </div>
+  </div>
+  <p class="muted small" style="margin-top:-10px">Stylized illustrations in each brand's color identity, not their actual packaging.</p>
+
+  <div class="chips" id="brandChips" role="group" aria-label="Choose a brand">
+    <button class="chip" data-b="0" aria-pressed="true">Olipop</button>
+    <button class="chip" data-b="1" aria-pressed="false">Poppi</button>
+    <button class="chip" data-b="2" aria-pressed="false">Culture Pop</button>
+  </div>
+  <div class="vs" aria-live="polite"><dl id="brandCard"></dl></div>
+
+  <h3 style="margin-top:28px">Who's winning?</h3>
+  <p>It depends what you measure. Pick a metric.</p>
+  <div class="chips" id="metricChips" role="group" aria-label="Choose a metric">
+    <button class="chip" data-k="0" aria-pressed="true">Attention right now</button>
+    <button class="chip" data-k="1" aria-pressed="false">Reach</button>
+    <button class="chip" data-k="2" aria-pressed="false">Ingredient trust</button>
+  </div>
+  <div class="leader" aria-live="polite"><p id="leaderText"></p></div>
+  <p class="muted small" style="margin-top:14px">This is my opinion based on public launch coverage. Sales figures I found are from 2024: Poppi reportedly topped $500M and Olipop reported about $400M and profitability. Treat those as dated.</p>
+  <hr class="rule">
+</section>
+
+<section id="case">
+  <h2>Something I've done</h2>
+  <span class="badge n">A thought experiment, not a real campaign</span>
+  <p>I built this one to show how I'd approach a brand from zero, not to claim it happened. If we talk, ask me about it and I'll tell you straight that it's a demo of process, the same way the Olipop work above is. Same format either way: the situation, what I did, and what happened, with the reason behind every decision.</p>
+
+  <h3 style="margin-top:8px">Operation: Achaar Empire</h3>
+  <p class="muted small" style="margin-top:-8px">Testing whether a food brand was worth starting, before starting it</p>
+
+  <p><strong>The situation.</strong> My grandmother makes a mango pickle that's been a family-only secret for two decades. Everyone who tastes it asks where to buy it. Nobody outside the family ever had. The real question wasn't "will people like it," it was "will strangers actually pay for it," and I didn't want her to buy jars and lids and spend a weekend cooking before we knew the answer.</p>
+
+  <div class="ledger">
+    <div class="row">
+      <div><span class="k">Move</span><p>Built a one-page Instagram, no website, no shop, just a bio link to a Google Form.</p></div>
+      <div><span class="k">What it looked like</span><p>"Coming soon: 48 hours only. 40 jars. First come, first served."</p></div>
+      <div class="because"><span class="k">Because</span><p>I wanted the cheapest possible test. A form takes an hour to build; a store takes a weekend. If nobody filled it out, we'd know before spending a rupee on packaging.</p></div>
+    </div>
+    <div class="row">
+      <div><span class="k">Move</span><p>Wrote the launch post as a dare, not a sales pitch: "My grandmother won't post this. I'm doing it anyway."</p></div>
+      <div><span class="k">What it looked like</span><p>Framed the pickle as something being smuggled out of the family, not something being sold.</p></div>
+      <div class="because"><span class="k">Because</span><p>Nobody shares "new product." People share a story with tension in it. Scarcity plus a little rebellion is more shareable than a product shot.</p></div>
+    </div>
+    <div class="row">
+      <div><span class="k">Move</span><p>DM'd 15 small food accounts (2k to 10k followers) offering a free jar for an honest story, not a paid post.</p></div>
+      <div><span class="k">What it looked like</span><p>No brief, no contract, just "try it, say what you actually think."</p></div>
+      <div class="because"><span class="k">Because</span><p>At zero budget, borrowed trust beats paid reach. And an honest reaction from a small account travels further than a polished one from a big account nobody quite trusts.</p></div>
+    </div>
+    <div class="row">
+      <div><span class="k">Move</span><p>Capped it at 40 jars and said so on the page.</p></div>
+      <div><span class="k">What it looked like</span><p>A visible counter: "23 of 40 claimed."</p></div>
+      <div class="because"><span class="k">Because</span><p>A real cap is more convincing than a fake countdown timer. It also protects the one person actually doing the cooking.</p></div>
+    </div>
+  </div>
+
+  <div class="readout" style="margin:20px 0">
+    <span class="badge w">What I think would happen</span>
+    <p>The form fills up inside the 48 hours, mostly from three of the small accounts, not the biggest one. The real bottleneck turns out to be my grandmother's patience, not demand. That's the actual finding: the idea was never short on customers, it was short on production capacity. So the next move isn't a bigger launch, it's a waitlist and a plan for how much she's actually willing to cook.</p>
+  </div>
+
+  <p><strong>What I'd do differently.</strong> Build the waitlist from day one instead of turning latecomers away with nothing. A "no" with no follow-up is a wasted contact.</p>
+  <hr class="rule">
+</section>
+
+<section id="with-me">
+  <h2>What working with me looks like</h2>
+  <p>I look at what's already running before I propose anything new. I fix the leaks before I spend on more traffic. And I write down why, so the team can argue with my reasoning instead of guessing at it.</p>
+
+  <div class="howto" style="margin-top:22px">
+    <p><strong>About me.</strong> I just finished my postgrad in Marketing and Strategy at Warwick Business School. This portfolio is the kind of thinking I'd bring on day one, not just in theory.</p>
+    <p style="margin-top:10px"><a class="cta alt" href="https://linkedin.com/in/dikshatyagi" target="_blank" rel="noopener">Connect on LinkedIn &#8594;</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <hr class="rule" style="margin-top:0;margin-bottom:24px">
+  <p>Spec work. Not affiliated with, endorsed by, or commissioned by Olipop, Poppi or Culture Pop. Built from public information as of September 24, 2026.</p>
+</footer>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ---------- badge lab demo ---------- */
+  var badgeSet = [
+    { title: 'Spookily Close', line: 'Missed the drawing by minutes, not miles.' },
+    { title: 'Cursed by One Case', line: 'So close to 12 cases of apple magic.' },
+    { title: 'The House That Almost Was', line: 'Your porch was ready. The universe wasn\u2019t.' },
+    { title: 'Professional Entrant', line: 'You\u2019ve shown up more times than the drawing has.' },
+    { title: 'Sore Loser, Snacks Included', line: 'For the ones who refuse to unsubscribe.' },
+    { title: 'Almost Had the Best House on the Block', line: 'The official, mostly-serious runner-up title.' }
+  ];
+  var loseBtn = $('#loseBtn'), badgeOut = $('#badgeOut'), loseCount = 0, usedBadges = [];
+  function pickBadge() {
+    var pool = badgeSet.filter(function (b) { return usedBadges.indexOf(b.title) === -1; });
+    if (!pool.length) { usedBadges = []; pool = badgeSet; }
+    var b = pool[Math.floor(Math.random() * pool.length)];
+    usedBadges.push(b.title);
+    return b;
+  }
+  if (loseBtn) {
+    loseBtn.addEventListener('click', function () {
+      loseCount++;
+      var b = pickBadge();
+      var tier = '';
+      if (loseCount === 3) tier = '<p class="because" style="margin-top:10px"><b>Unlocked</b> 3 in a row. Tomorrow\'s entry now counts double.</p>';
+      if (loseCount >= 5) tier = '<p class="because" style="margin-top:10px"><b>Unlocked</b> 5 in a row. That\'s a real free-can code, not a joke one.</p>';
+      badgeOut.innerHTML =
+        '<span class="badge n">Almost Award #' + loseCount + '</span>' +
+        '<h3 style="margin-bottom:4px">' + esc(b.title) + '</h3>' +
+        '<p style="margin-bottom:0">' + esc(b.line) + '</p>' +
+        tier;
+      loseBtn.textContent = loseCount >= 5 ? 'Enter again (demo)' : 'Enter tomorrow\u2019s drawing (demo)';
+    });
+  }
+
+  /* ---------- nav highlight ---------- */
+  var links = $$('#nav a');
+  var ids = links.map(function (a) { return a.getAttribute('href').slice(1); });
+  function setNav(id) { links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + id); }); }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) setNav(e.target.id); });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
+
+  /* ---------- teardown pins ---------- */
+  var pins = [
+    { v: 'w', title: 'It sells an occasion, not just a flavor',
+      text: 'Halloween bragging rights give Caramel Apple a job to do: hosting. That is a stronger hook than "new flavor, enter to win." One caution: handing full-size cans to trick-or-treaters is fun but unlikely. The party is the stronger use.',
+      why: 'People share occasions. They rarely share flavor notes.' },
+    { v: 'n', title: 'The name promises a contest. The mechanic is a lottery.',
+      text: '"Best House on the Block" suggests houses compete. Winners are actually drawn at random, so nobody is asked to show a house. My fix: keep the draw, then add a second phase where winners submit their setup and the community votes on a grand prize.',
+      why: 'The winners are about to decorate a porch with 144 cans. That is content sitting unused.' },
+    { v: 'w', title: 'The prize is real',
+      text: '12 cases is about $432 at retail, according to the rules listing. It is big enough to feel winnable and worth telling a friend about.',
+      why: 'A concrete prize is easy to picture and easy to share.' },
+    { v: 'w', title: 'The daily window builds a habit',
+      text: 'Five winners a day and a window that is open only from 12pm to 5:59pm PT gives people a reason to come back for two weeks.',
+      why: 'Repeat visits and repeat email capture without new ad spend. (My inference.)' },
+    { v: 'w', title: 'Entry is easy',
+      text: 'Name and email. No upload, no quiz, no account to create.',
+      why: 'Every extra field costs entries. This one respects the visitor\'s time.' },
+    { v: 'n', title: 'The closed state wastes intent',
+      text: 'Outside the window, the page says the giveaway is recharging and lists flavors. There is no reminder and no store finder. This is based on the page copy, so I would check it on the live page. My fix: a countdown, a "Remind me" option, and a "Find it near you" link.',
+      why: 'The person on that page is the most motivated visitor you will get.' },
+    { v: 'n', title: 'No plan for the people who lose',
+      text: 'There are 75 winners in total. Everyone else leaves with nothing, and the page has no path to buy and little product proof, like the 5g of sugar and the fiber the brand just put on its cans. My fix: a non-winner email with a store finder, and a proof row on the page.',
+      why: 'The biggest audience in this campaign is the people who did not win.' }
+  ];
+  var seen = {};
+  var readout = $('#readout');
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function showPin(i) {
+    var p = pins[i];
+    readout.innerHTML =
+      '<span class="badge ' + p.v + '">' + (p.v === 'w' ? 'Working' : 'Not working') + '</span>' +
+      '<h3>' + esc(p.title) + '</h3>' +
+      '<p>' + esc(p.text) + '</p>' +
+      '<p class="because"><b>Because</b> ' + esc(p.why) + '</p>';
+    seen[i] = true;
+    $$('.pin').forEach(function (b) {
+      var on = Number(b.dataset.i) === i;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (seen[b.dataset.i]) b.classList.add('seen');
+    });
+    var n = Object.keys(seen).length;
+    $('#prog').textContent = n + ' of 7 reviewed' + (n === 7 ? '. That is the whole teardown.' : '');
+    $('#barfill').style.width = Math.round(n / 7 * 100) + '%';
+  }
+  $$('.pin').forEach(function (b) { b.addEventListener('click', function () { showPin(Number(b.dataset.i)); }); });
+
+  /* ---------- rebuild mock ---------- */
+  var phone = $('#phone');
+  var bT = $('#bTheirs'), bM = $('#bMine');
+  var mode = 'mine';
+  function ptSecs() {
+    var parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }).formatToParts(new Date());
+    var o = {};
+    parts.forEach(function (p) { o[p.type] = p.value; });
+    return (Number(o.hour) % 24) * 3600 + Number(o.minute) * 60 + Number(o.second);
+  }
+  function fmt(t) {
+    var h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), s = t % 60;
+    return [h, m, s].map(function (x) { return String(x).padStart(2, '0'); }).join(':');
+  }
+  function clockState() {
+    var s = ptSecs();
+    if (s >= 43200 && s < 64800) return { open: true, left: 64800 - s };
+    var d = s < 43200 ? 43200 - s : 86400 - s + 43200;
+    return { open: false, left: d };
+  }
+  function renderPhone() {
+    if (mode === 'theirs') {
+      phone.innerHTML =
+        '<p class="tag">Caramel Apple giveaway</p>' +
+        '<p class="big">The giveaway is recharging.</p>' +
+        '<p class="lbl">Back at 12pm PT for another chance to win.</p>' +
+        '<p class="tag" style="margin-top:22px">Shop limited edition flavors</p>' +
+        '<div class="flv"><span>Caramel Apple</span><span>Raspberry Sherbet</span><span>Shirley Temple</span><span>Pineapple Paradise</span></div>';
+      $('#mockNote').innerHTML = 'Their closed state, as I read it from the page copy. A visitor here has no reminder to set, no store to find, and no clear next step. Most of them leave.';
+    } else {
+      var c = clockState();
+      phone.innerHTML =
+        '<p class="tag">Caramel Apple giveaway</p>' +
+        '<p class="big">' + (c.open ? 'Today\'s drawing is open.' : 'The drawing opens at 12pm PT.') + '</p>' +
+        '<p class="clock" id="clk">' + fmt(c.left) + '</p>' +
+        '<p class="lbl" id="clkLbl">' + (c.open ? 'until today\'s drawing closes' : 'until the next drawing opens') + '</p>' +
+        '<p class="facts">5g sugar. High fiber. Limited edition.</p>' +
+        '<button class="btn p" id="remind">Remind me</button>' +
+        '<button class="btn s" id="find">Find it near you</button>' +
+        '<p class="toast" id="toast"></p>' +
+        '<p class="foot">Can\'t wait? It\'s at Target, Walmart and Whole Foods while supplies last.</p>';
+      $('#remind').addEventListener('click', function () { $('#toast').textContent = 'Reminder set. (Demo)'; });
+      $('#find').addEventListener('click', function () { $('#toast').textContent = 'Opens the store finder. (Demo)'; });
+      $('#mockNote').innerHTML = 'My closed state. The countdown is live and runs on Pacific time. The countdown gives the visitor a reason to come back, the reminder captures them while they are interested, and the store link lets them buy today if they cannot wait. The buttons are demos.';
+    }
+    bT.setAttribute('aria-pressed', mode === 'theirs' ? 'true' : 'false');
+    bM.setAttribute('aria-pressed', mode === 'mine' ? 'true' : 'false');
+  }
+  bT.addEventListener('click', function () { mode = 'theirs'; renderPhone(); });
+  bM.addEventListener('click', function () { mode = 'mine'; renderPhone(); });
+  setInterval(function () {
+    if (mode !== 'mine') return;
+    var clk = $('#clk');
+    if (!clk) return;
+    var c = clockState();
+    clk.textContent = fmt(c.left);
+  }, 1000);
+  renderPhone();
+
+  /* ---------- emails ---------- */
+  var mails = [
+    { subj: 'You\'re in. Winners drawn soon \uD83C\uDF4E', prev: 'Caramel Apple is already at your store.',
+      body: '<p>Hi [first name],</p><p>You\'re entered in today\'s drawing. While you wait: Caramel Apple is crisp green apple with buttery caramel, 5g of sugar, and high fiber. It\'s limited edition, so it won\'t be around long.</p><p><span class="env-btn">Find it near you</span></p><p class="muted small">Winners are notified by email. You can enter again tomorrow.</p>',
+      why: 'The confirmation is the most-opened email in the set, so it sells as well as confirms. One button, one job.' },
+    { subj: 'You didn\u2019t win. You got something funnier.', prev: 'Introducing: your Almost Award.',
+      body: '<p>Hi [first name],</p><p>Today\'s drawing didn\'t go your way. But you\'ve been awarded <b>"Spookily Close"</b> \u2014 our official, mostly-serious title for entrants who missed 12 cases by inches.</p><p><span class="env-btn">See my Almost Award</span></p><p>It comes with a real discount code, not just a joke. And if you collect three of these in a row, tomorrow\'s entry is already guaranteed to count double.</p>',
+      why: 'This reaches the biggest segment in the whole campaign, the people who lost. Instead of a dead end, it gives them something worth opening and worth sending to a friend.' },
+    { subj: 'You won 12 cases. Now make your porch famous.', prev: 'Here\'s how to claim them, and how to win the grand prize.',
+      body: '<p>Hi [first name],</p><p>Congratulations. You won 12 cases of Caramel Apple.</p><p>To claim: [three short claim steps].</p><p>Then the fun part. Send us a photo of your setup and tag the brand. You\'re in the vote for the Best House on the Block grand prize.</p><p><span class="env-btn">Claim my prize</span></p><p class="muted small">Grand-prize rules would need legal review before this goes live.</p>',
+      why: 'Claim steps come first and stay short. Then the email turns a prize into content, which is what the winners are for.' }
+  ];
+  function showMail(i) {
+    var m = mails[i];
+    $('#mSubj').textContent = m.subj;
+    $('#mPrev').textContent = m.prev;
+    $('#mBody').innerHTML = m.body;
+    $('#mWhy').innerHTML = '<b>Because</b> ' + m.why;
+    $$('#mailChips .chip').forEach(function (b) { b.setAttribute('aria-pressed', Number(b.dataset.m) === i ? 'true' : 'false'); });
+  }
+  $$('#mailChips .chip').forEach(function (b) { b.addEventListener('click', function () { showMail(Number(b.dataset.m)); }); });
+  showMail(0);
+
+  /* ---------- 30-day plan ---------- */
+  var phases = [
+    { name: 'Audit and quick fixes', from: 1, to: 7, items: [
+      'Pull the funnel: visits, entries, email opt-ins, purchases. Find where people drop.',
+      'Check how much traffic lands outside the 12pm PT window, and what those visitors do.',
+      'Ship two fast fixes before Sept 30: a store finder on the closed state and a non-winner email.',
+      'Read the actual welcome and winner emails and grade them.'] },
+    { name: 'Learn from what ran', from: 8, to: 14, items: [
+      'Find which days and entry times produced the most entries, and the most purchases.',
+      'Read the social conversation around Caramel Apple, Poppi Sour Apple and Culture Pop Sparkling Apple.',
+      'Check retail velocity by store to see where Caramel Apple is actually moving.'] },
+    { name: 'Build the Halloween push', from: 15, to: 21, items: [
+      'Build the winner-porch content program: brief, submission page, tagging rules (with legal review).',
+      'Create a "host the party" content set aimed at the party occasion.',
+      'A/B test subject lines on the non-winner email.'] },
+    { name: 'Launch and set up the next drop', from: 22, to: 30, items: [
+      'Launch the grand-prize vote using winner content.',
+      'Publish a one-page readout: entries, opt-in rate, non-winner conversion, retail lift.',
+      'Draft the playbook for the winter limited edition using what worked.'] }
+  ];
+  var rng = $('#dRange');
+  var months = ['Sept', 'Oct'];
+  function dateFor(day) {
+    var d = 24 + day;
+    return d <= 30 ? 'Sept ' + d : 'Oct ' + (d - 30);
+  }
+  function renderDay() {
+    var day = Number(rng.value);
+    $('#dNum').textContent = day;
+    $('#dDate').textContent = dateFor(day);
+    rng.style.setProperty('--fill', ((day - 1) / 29 * 100) + '%');
+    var idx = 0;
+    phases.forEach(function (p, i) { if (day >= p.from && day <= p.to) idx = i; });
+    $$('#phases span').forEach(function (s, i) { s.classList.toggle('on', i === idx); });
+    $('#dPhase').textContent = phases[idx].name;
+    $('#dList').innerHTML = phases[idx].items.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
+    var flags = '';
+    var toHalloween = 37 - day; /* Oct 31 is day 37 counted from Sept 25 as day 1 */
+    if (day <= 6) flags += '<span class="flag">Giveaway still live: ' + (7 - day) + ' day' + (7 - day === 1 ? '' : 's') + ' left</span>';
+    else if (day === 7) flags += '<span class="flag">Giveaway ends today</span>';
+    if (toHalloween > 0) flags += '<span class="flag">Halloween in ' + toHalloween + ' days</span>';
+    $('#dFlags').innerHTML = flags;
+  }
+  rng.addEventListener('input', renderDay);
+  renderDay();
+
+  /* ---------- competitors ---------- */
+  var brands = [
+    { angle: 'Dessert: caramel over green apple, 5g of sugar.',
+      move: 'Daily giveaway (12 cases, five winners a day) plus a Whirlpool refrigerator sweepstakes.',
+      strong: 'Reaches anyone with an email address, and is tied to a real occasion.',
+      gap: 'The mechanic is a lottery, and there is no clear path from entry to purchase.' },
+    { angle: 'Candy: green apple with a sour bite.',
+      move: 'An interactive billboard in SoHo with 500 peelable apple stickers, events in New York, Chicago and Los Angeles, a candy-shop collab, and creator-style mailers.',
+      strong: 'It feels like an event and is built for social content.',
+      gap: 'The physical activations reach only a few cities.' },
+    { angle: 'Purity: zero added sugar, no sweetener alternatives, apple juice concentrate with cinnamon and clove.',
+      move: 'Grocery-first launch at chains like Albertsons, Wegmans, Giant Food and H-E-B.',
+      strong: 'Ingredient credibility.',
+      gap: 'Little visible consumer activation in what I found.' }
+  ];
+  var labels = [['Flavor angle', 'angle'], ['Launch move', 'move'], ['Strength', 'strong'], ['Gap', 'gap']];
+  function showBrand(i) {
+    $('#brandCard').innerHTML = labels.map(function (l) {
+      return '<div class="r"><dt>' + l[0] + '</dt><dd>' + esc(brands[i][l[1]]) + '</dd></div>';
+    }).join('');
+    $$('#brandChips .chip').forEach(function (b) { b.setAttribute('aria-pressed', Number(b.dataset.b) === i ? 'true' : 'false'); });
+    $$('.can').forEach(function (c) {
+      var on = Number(c.dataset.b) === i;
+      c.classList.toggle('active', on);
+      c.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  $$('#brandChips .chip').forEach(function (b) { b.addEventListener('click', function () { showBrand(Number(b.dataset.b)); }); });
+  $$('.can').forEach(function (c) {
+    c.addEventListener('click', function () { showBrand(Number(c.dataset.b)); });
+    c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showBrand(Number(c.dataset.b)); } });
+  });
+  showBrand(0);
+
+  var leaders = [
+    '<b>Poppi.</b> The billboard-as-content idea is the sharpest single execution of the three. It turns launch-day curiosity into something people participate in and film.',
+    '<b>Olipop.</b> A giveaway can reach anyone with an email address in any state. A New York billboard cannot. Olipop\'s weakness is what happens after the entry.',
+    '<b>Culture Pop.</b> Zero added sugar and no sweetener alternatives is a claim the other two cannot match on the label.'
+  ];
+  function showLeader(i) {
+    $('#leaderText').innerHTML = leaders[i];
+    $$('#metricChips .chip').forEach(function (b) { b.setAttribute('aria-pressed', Number(b.dataset.k) === i ? 'true' : 'false'); });
+  }
+  $$('#metricChips .chip').forEach(function (b) { b.addEventListener('click', function () { showLeader(Number(b.dataset.k)); }); });
+  showLeader(0);
+})();
+</script>
+</body>
+</html>
